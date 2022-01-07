@@ -1,0 +1,85 @@
+﻿<Window x:Class="BobcatExamples.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BobcatExamples.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="JavaZone" Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="Java" Style="{StaticResource TBPrimary}"/>
+            <TextBlock Style="{StaticResource TBDef}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Run Text="Selected Index: "/><Run Text="{Binding SelectedIndex, ElementName=JavaListView}"/>
+            </TextBlock>
+            <ListView Margin="0,45,0,0" x:Name="JavaListView">
+                    
+            </ListView>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Content="Refresh" x:Name="RefJavaBtn" Click="RefJavaBtn_Click"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" x:Name="GameListGrid">
+            <TextBlock Text="Game List" Style="{StaticResource TBPrimary}"/>
+            <TextBlock Style="{StaticResource TBDef}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Run Text="Selected Index: "/><Run Text="{Binding SelectedIndex, ElementName=GameListView}"/>
+            </TextBlock>
+            <ListView Margin="0,45,0,0" x:Name="GameListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock>
+                                <Run>Name: </Run><Run Text="{Binding Name}"/><LineBreak/>
+                                <Run>Id: </Run><Run Text="{Binding Id}"/><LineBreak/>
+                                <Run>DirName: </Run><Run Text="{Binding DirName}"/><LineBreak/>
+                                <Run>MainClass: </Run><Run Text="{Binding MainClass}"/><LineBreak/>
+                                <Run>Assets: </Run><Run Text="{Binding Assets}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Content="Refresh" x:Name="RefGameListBtn" HorizontalAlignment="Right" VerticalAlignment="Top" Height="45" Click="RefGameListBtn_Click"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="2" x:Name="AuthenticatorGrid">
+            <TextBlock Text="Authenticator (Offline)" Style="{StaticResource TBPrimary}"/>
+            <StackPanel Margin="0,45,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource TBDef}">Username: </TextBlock>
+                    <TextBox x:Name="OfflUN" MinWidth="160">Example</TextBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" x:Name="YggdrasilAuthenticatorGrid">
+            <TextBlock Text="Authenticator (Yggdrasil)" Style="{StaticResource TBPrimary}"/>
+            <StackPanel Margin="0,45,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource TBDef}">Email: </TextBlock>
+                    <TextBox x:Name="YggUN" MinWidth="160">example@example.com</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource TBDef}">Password: </TextBlock>
+                    <PasswordBox x:Name="YggPW" MinWidth="160"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" x:Name="LaunchSettingsGrid">
+            <TextBlock Text="Launch Settings" Style="{StaticResource TBPrimary}"/>
+            <!--TODO-->
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" x:Name="LaunchGrid">
+            <TextBlock Text="Launch!" Style="{StaticResource TBPrimary}"/>
+            <Grid Margin="0,45,0,0">
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Content="Launch!" x:Name="LaunchBtn" Click="LaunchBtn_Click"></Button>
+                <TextBox x:Name="GameLaunchLogs" Margin="0,40,0,0"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
