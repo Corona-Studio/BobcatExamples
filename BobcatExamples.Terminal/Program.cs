@@ -1,14 +1,14 @@
-﻿using ProjBobcat.Class.Helper;
-using ProjBobcat.Class.Model;
-using ProjBobcat.Class.Model.LauncherProfile;
-using ProjBobcat.DefaultComponent.Launch;
-using ProjBobcat.Event;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjBobcat.Class.Helper;
+using ProjBobcat.Class.Model;
+using ProjBobcat.Class.Model.LauncherProfile;
 using ProjBobcat.DefaultComponent.Authenticator;
-using ProjBobcat.DefaultComponent.Logging;
+using ProjBobcat.DefaultComponent.Launch;
 using ProjBobcat.DefaultComponent.Launch.GameCore;
+using ProjBobcat.DefaultComponent.Logging;
+using ProjBobcat.Event;
 
 namespace BobcatExamples.Terminal
 {
@@ -21,27 +21,17 @@ namespace BobcatExamples.Terminal
         {
             var jl = SystemInfoHelper.FindJava();
 
-            foreach (var java in jl)
-            {
-                Console.WriteLine($"搜索到的 Java - {java}");
-            }
+            foreach (var java in jl) Console.WriteLine($"搜索到的 Java - {java}");
 
             InitLauncherCore(); //初始化核心
 
             Console.WriteLine($"在目录中扫描到了 {core.VersionLocator.GetAllGames().Count()} 个游戏：");
             var gameList = core.VersionLocator.GetAllGames().ToList();
-            foreach (var game in gameList)
-            {
-                Console.WriteLine($"\t - {game.Name}");
-            }
+            foreach (var game in gameList) Console.WriteLine($"\t - {game.Name}");
 
             var firstGame = gameList.First(); //获取搜索到的第一个游戏
-            Console.WriteLine(
-                string.Format("第一个游戏的信息：{0}游戏 ID：{1}{0}游戏底层版本：{2}{0}游戏名称：{3}",
-                $"{Environment.NewLine}\t",
-                firstGame.Id,
-                firstGame.RootVersion,
-                firstGame.Name));
+            Console.WriteLine("第一个游戏的信息：{0}游戏 ID：{1}{0}游戏底层版本：{2}{0}游戏名称：{3}", $"{Environment.NewLine}\t", firstGame.Id,
+                firstGame.RootVersion, firstGame.Name);
 
             var javaPath = jl.ToList().First(); //获取搜索到的第一个Java
             Console.WriteLine($"列表中的第一个 Java 所在的路径：{javaPath}");
@@ -58,10 +48,10 @@ namespace BobcatExamples.Terminal
                 {
                     AdvanceArguments = "", // GC类型
                     JavaExecutable = javaPath, // JAVA路径
-                    Resolution = new ResolutionModel { Height = 600, Width = 800 }, // 游戏窗口分辨率
+                    Resolution = new ResolutionModel {Height = 600, Width = 800}, // 游戏窗口分辨率
                     MinMemory = 512, // 最小内存
                     MaxMemory = 1024, // 最大内存
-                    GcType = GcType.G1Gc, // GC类型
+                    GcType = GcType.G1Gc // GC类型
                 },
                 Authenticator = new OfflineAuthenticator //离线认证
                 {

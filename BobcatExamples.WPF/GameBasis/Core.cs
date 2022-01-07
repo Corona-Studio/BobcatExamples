@@ -1,11 +1,11 @@
-﻿using ProjBobcat.DefaultComponent.Launch;
+﻿using System;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using ProjBobcat.Class.Helper;
+using ProjBobcat.Class.Model.Mojang;
+using ProjBobcat.DefaultComponent.Launch;
 using ProjBobcat.DefaultComponent.Launch.GameCore;
 using ProjBobcat.DefaultComponent.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BobcatExamples.WPF.GameBasis
 {
@@ -14,9 +14,10 @@ namespace BobcatExamples.WPF.GameBasis
         public static DefaultGameCore core;
         public static string rootPath;
         public static Guid clientToken;
+
         public static void CoreInit()
         {
-            rootPath = Environment.CurrentDirectory+"\\.minecraft";
+            rootPath = Environment.CurrentDirectory + "\\.minecraft";
             clientToken = Guid.NewGuid();
             core = new DefaultGameCore
             {
@@ -29,6 +30,16 @@ namespace BobcatExamples.WPF.GameBasis
                 },
                 GameLogResolver = new DefaultGameLogResolver()
             };
+        }
+
+        public static async Task<VersionManifest?> GetVersionManifestTaskAsync()
+        {
+            const string vmUrl = "http://launchermeta.mojang.com/mc/game/version_manifest.json";
+            var contentRes = await HttpHelper.Get(vmUrl);
+            var content = await contentRes.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<VersionManifest>(content);
+
+            return model;
         }
     }
 }
